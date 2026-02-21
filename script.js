@@ -15,14 +15,14 @@ window.addEventListener("load", () => {
     }, 1500);
 });
 
-// 3. Parallax Background
+// 3. Parallax Background Movement
 gsap.to(".artistic-bg", {
-    y: "-25vh",
+    y: "-15%", // Moves the image up slightly as you scroll
     scrollTrigger: {
         trigger: ".scroll-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: true
+        scrub: true // Ties the movement directly to the scrollbar
     }
 });
 
@@ -76,4 +76,5 @@ function createDust() {
         });
     }
 }
+
 
