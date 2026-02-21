@@ -1,59 +1,40 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const sofa = document.getElementById("animated-sofa");
-const shadow = document.getElementById("sofa-shadow");
 
+// The "360 Dimension" Rotation Timeline
 const tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".scroll-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.5, // Smooth physics lag for weight
+        scrub: 1.5, // Keeps the rotation smooth and "heavy"
     }
 });
 
 tl.to(sofa, { 
-    x: "20vw", 
-    rotationY: 60,  // SIDE VIEW
-    rotationZ: 5,
-    ease: "none" 
-})
-.to(sofa, { 
-    x: "0vw", 
-    rotationX: 45,  // UPPER VIEW
-    rotationY: 0,
-    scale: 1.2,
-    ease: "none" 
-})
-.to(sofa, { 
-    x: "-20vw", 
-    rotationY: 180, // BACK VIEW (Simulated via Flip)
-    rotationX: 0,
-    scale: 0.8,
-    ease: "none" 
-})
-.to(sofa, { 
-    x: "15vw", 
-    rotationY: -60, // OTHER SIDE
-    rotationZ: -5,
+    // 1. Rotate to the Right Side
+    rotationY: 90, 
     scale: 1.1,
     ease: "none" 
 })
 .to(sofa, { 
-    x: "0vw", 
-    rotationY: 0, 
-    rotationX: 0, 
-    rotationZ: 0, 
-    scale: 1.4,     // FINAL FRONT VIEW
+    // 2. Rotate to the Back (180 degrees)
+    rotationY: 180, 
+    rotationX: 10, // Slight tilt to see the top-back
+    scale: 1,
     ease: "none" 
-});
-
-// Shadow physics: Moves slightly opposite to sofa
-gsap.to(shadow, {
-    scaleX: 1.5,
-    opacity: 0.5,
-    scrollTrigger: {
-        trigger: ".scroll-container",
-        scrub: 1.5
-    }
+})
+.to(sofa, { 
+    // 3. Rotate to the Left Side
+    rotationY: 270, 
+    rotationX: 0,
+    scale: 1.1,
+    ease: "none" 
+})
+.to(sofa, { 
+    // 4. Return to Front with a Zoom
+    rotationY: 360, 
+    scale: 1.5,
+    ease: "none" 
 });
