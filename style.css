@@ -61,7 +61,30 @@ body {
     border-left: 3px solid var(--gold);
 }
 
-.gold-text { color: var(--gold); text-shadow: 0 0 15px rgba(212,175,55,0.4); }
+.gold-text {
+    /* Create a realistic metallic gradient */
+    background: linear-gradient(
+        45deg,
+        #8a6d3b 0%,
+        #d4af37 25%,
+        #fcf6ba 50%,
+        #d4af37 75%,
+        #8a6d3b 100%
+    );
+    
+    /* This clips the background to the shape of your letters */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Makes the actual text color transparent so the gold shows through */
+    color: transparent;
+    
+    /* Adds a subtle 'shimmer' effect */
+    background-size: 200% auto;
+    animation: goldShimmer 5s linear infinite;
+    
+    font-weight: 800;
+}
 
 .cta-button {
     margin-top: 30px; padding: 15px 45px;
@@ -86,3 +109,4 @@ body {
 .sofa-wrapper {
     z-index: 10 !important;
 }
+
