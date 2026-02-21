@@ -1,30 +1,20 @@
-// --- LOADING SCREEN LOGIC ---
+// --- 1. Loader Logic ---
 window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-    const body = document.body;
-    
-    // We add a tiny 500ms delay just to make the transition feel cinematic
     setTimeout(() => {
-        // Trigger the CSS fade out
-        loader.classList.add("fade-out");
-        // Re-enable scrolling
-        body.classList.remove("loading");
-        
-        // Refresh GSAP so it calculates the scroll heights correctly now that everything is loaded
+        document.getElementById("loader").classList.add("fade-out");
+        document.body.classList.remove("loading");
         ScrollTrigger.refresh();
-    }, 500); 
+    }, 1000);
 });
 
-// ... your existing GSAP code starts here ...
 gsap.registerPlugin(ScrollTrigger);
 
 const sofa = document.getElementById("animated-sofa");
 const shadow = document.getElementById("sofa-shadow");
 
-// 1. BACKGROUND PARALLAX SCROLL
-// Makes the background image move slightly as you scroll down
+// --- 2. Parallax Background ---
 gsap.to(".artistic-bg", {
-    y: "-15vh", // Moves the background up smoothly
+    y: "-10%",
     scrollTrigger: {
         trigger: ".scroll-container",
         start: "top top",
@@ -33,63 +23,46 @@ gsap.to(".artistic-bg", {
     }
 });
 
-// 2. THE 360 SOFA ROTATION (WITH SLOW-MO FRONT VIEW)
+// --- 3. 360° Rotation ---
 const tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".scroll-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: 2, // The "weight/physics" of the scroll. Higher number = slower catch-up
+        scrub: 1.5
     }
 });
 
-tl.to(sofa, { rotationY: 90, rotationZ: 5, scale: 1.1, ease: "none" }) // SIDE TILT
-  .to(sofa, { rotationY: 180, rotationX: 15, scale: 1, ease: "none" }) // UPPER BACK
-  .to(sofa, { rotationY: 270, rotationX: 0, rotationZ: -5, scale: 1.1, ease: "none" }) // OTHER SIDE TILT
-  /* THE SLOW-MO LANDING */
-  // Power2.out makes it decelerate smoothly as it hits 360 degrees
-  .to(sofa, { rotationY: 360, rotationX: 0, rotationZ: 0, scale: 1.5, ease: "power2.out", duration: 3 });
+tl.to(sofa, { rotationY: 90, rotationX: 5, scale: 1.1, ease: "none" })
+  .to(sofa, { rotationY: 180, rotationX: -10, scale: 0.9, ease: "none" })
+  .to(sofa, { rotationY: 270, rotationX: 5, scale: 1.1, ease: "none" })
+  .to(sofa, { rotationY: 360, rotationX: 0, scale: 1.3, ease: "power2.inOut", duration: 2 });
 
-// 3. SHADOW PHYSICS
-// The shadow shrinks and fades when the sofa scales down (moves "away")
-const shadowTl = gsap.timeline({
+// --- 4. Shadow Physics ---
+gsap.to(shadow, {
+    scaleX: 0.5, opacity: 0.05,
     scrollTrigger: {
         trigger: ".scroll-container",
-        start: "top top",
+        start: "top 50%",
         end: "bottom bottom",
-        scrub: 2,
+        scrub: 1.5
     }
 });
 
-shadowTl.to(shadow, { scaleX: 0.8, opacity: 0.1, ease: "none" })
-        .to(shadow, { scaleX: 0.6, opacity: 0.05, ease: "none" })
-        .to(shadow, { scaleX: 0.8, opacity: 0.1, ease: "none" })
-        .to(shadow, { scaleX: 1.2, opacity: 0.4, ease: "power2.out", duration: 3 });
-
-
-// 4. GOLD DUST EFFECT
+// --- 5. Gold Dust Particles ---
 function createDust() {
-    const container = document.body;
-    for (let i = 0; i < 60; i++) {
-        const dust = document.createElement("div");
-        dust.className = "dust";
-        container.appendChild(dust);
-        
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        
-        gsap.set(dust, { x: x, y: y, opacity: Math.random() });
-        
-        gsap.to(dust, {
-            y: "-=150",
-            x: "+=" + (Math.random() * 60 - 30),
-            opacity: 0,
-            duration: 3 + Math.random() * 5,
-            repeat: -1,
-            delay: Math.random() * 5,
-            ease: "sine.inOut"
+    for (let i = 0; i < 40; i++) {
+        const d = document.createElement("div");
+        d.className = "dust";
+        document.body.appendChild(d);
+        gsap.set(d, { x: Math.random() * innerWidth, y: Math.random() * innerHeight, opacity: Math.random() });
+        gsap.to(d, {
+            y: "-=100", x: "+=30", opacity: 0,
+            duration: 4 + Math.random() * 4,
+            repeat: -1, ease: "sine.inOut"
         });
     }
 }
 createDust();
+
 
