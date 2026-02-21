@@ -14,12 +14,24 @@ body {
 
 body.loading { overflow: hidden; }
 
-/* Background - Deepened for better contrast */
+/* --- ARTISTIC BACKGROUND (FIXED) --- */
 .artistic-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 130vh;
-    background: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920') center/cover no-repeat;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 140vh; /* Slightly taller for the parallax movement */
+    
+    /* Using a high-quality stable source for a luxury room */
+    background-image: url('https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
     z-index: -2; 
-    filter: brightness(0.38) contrast(1.2); /* Much darker background */
+    /* Increased brightness to 0.2 so the room is visible in the dark */
+    filter: brightness(0.2) contrast(1.1) saturate(0.8); 
+    will-change: transform; /* Smoother parallax performance */
 }
 
 /* Loader */
@@ -78,4 +90,5 @@ body.loading { overflow: hidden; }
     pointer-events: none; z-index: 5; 
     box-shadow: 0 0 8px var(--gold); 
 }
+
 
