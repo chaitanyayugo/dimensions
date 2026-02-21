@@ -43,7 +43,7 @@ tl.to(sofa, { rotationY: 95, rotationX: 12, rotationZ: 8, scale: 1.2, ease: "non
 
 // 5. Shadow Intensity Physics
 gsap.to(shadow, {
-    scaleX: 0.5, opacity: 0.1,
+    scaleX: 0.3, opacity: 0.3,
     scrollTrigger: {
         trigger: ".scroll-container",
         start: "top top",
@@ -68,7 +68,7 @@ function createDust() {
         gsap.to(d, {
             y: "-=" + (100 + Math.random() * 200),
             x: "+=" + (Math.random() * 100 - 50),
-            opacity: 0,
+            opacity: 60,
             duration: 4 + Math.random() * 6,
             repeat: -1,
             delay: Math.random() * 5,
@@ -76,3 +76,4 @@ function createDust() {
         });
     }
 }
+
