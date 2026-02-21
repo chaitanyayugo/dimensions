@@ -1,66 +1,70 @@
 :root {
     --bg: #050505;
     --gold: #d4af37;
-    --white: #ffffff;
 }
 
 body {
     background-color: var(--bg);
     margin: 0;
-    overflow-x: hidden;
     font-family: 'Segoe UI', sans-serif;
     color: white;
+    overflow-x: hidden;
 }
 
-/* Layer -5: Background */
+/* THE BACKGROUND - Deep & Moody */
 .artistic-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 110vh;
-    background: url('https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover;
-    z-index: -5; filter: brightness(0.08) contrast(1.2);
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.8), rgba(5,5,5,0.8)), 
+                url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1920');
+    background-size: cover;
+    background-position: center;
+    z-index: -5;
 }
 
-/* Layer -1: Dust Particles */
+/* DUST LAYER */
 #dust-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 .dust { position: absolute; width: 2px; height: 2px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 5px var(--gold); }
 
-/* Layer 10: Sofa (Huge Size) */
+/* THE SOFA - Centered and Large */
 .sofa-wrapper {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 100vw; max-width: 950px; /* Massive size */
-    z-index: 10; pointer-events: none; perspective: 2000px;
+    position: fixed;
+    top: 55%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 900px;
+    z-index: 10; /* Middle Layer */
+    perspective: 2000px;
+    pointer-events: none;
 }
-#animated-sofa { width: 100%; transform-style: preserve-3d; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8)); }
-
+#animated-sofa { width: 100%; transform-style: preserve-3d; }
 #sofa-shadow {
-    position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
-    width: 80%; height: 40px; background: radial-gradient(ellipse, rgba(212,175,55,0.2), transparent);
-    filter: blur(20px);
+    position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+    width: 80%; height: 30px;
+    background: radial-gradient(ellipse, rgba(212,175,55,0.15), transparent);
+    filter: blur(15px);
 }
 
-/* Layer 100: Text Panels */
+/* THE CONTENT - Layered on top */
 .scroll-container { position: relative; z-index: 100; }
-.panel { height: 130vh; display: flex; align-items: center; padding: 0 10%; pointer-events: none; }
-.content-box {
-    pointer-events: all; max-width: 400px; padding: 40px;
-    background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px);
-    border-left: 3px solid var(--gold); border-radius: 4px;
-}
-
-.step-num { color: var(--gold); font-size: 0.7rem; letter-spacing: 4px; font-weight: 900; display: block; margin-bottom: 10px; }
+.panel { height: 120vh; display: flex; align-items: center; padding: 0 10%; }
+.center-text { justify-content: center; text-align: center; }
 .left-text { justify-content: flex-start; }
 .right-text { justify-content: flex-end; }
-.center-text { justify-content: center; text-align: center; }
 
-/* Gold Text */
-.gold-text {
-    background: linear-gradient(45deg, #8a6d3b, #fcf6ba, #d4af37);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    font-weight: 900;
+.content-box {
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-left: 3px solid var(--gold);
+    max-width: 400px;
+    pointer-events: all;
 }
 
-/* Loader & Navbar */
-#loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.hero-content h1 { font-size: 4rem; margin: 0; letter-spacing: -2px; }
+.gold-text { color: var(--gold); font-weight: 900; }
+
+/* Loader */
+#loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; }
 .fade-out { opacity: 0; visibility: hidden; transition: 1s; }
-.navbar { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; z-index: 150; box-sizing: border-box; }
-.logo { font-weight: 900; color: var(--gold); letter-spacing: 5px; text-decoration: none; }
-.cta-button { margin-top: 20px; padding: 15px 40px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; display: inline-block; }
