@@ -1,66 +1,59 @@
-// Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// Target the sofa image
 const sofa = document.getElementById("animated-sofa");
+const shadow = document.getElementById("sofa-shadow");
 
-// Create a master timeline locked to the scrollbar
 const tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".scroll-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.5, // 1.5 second smoothing delay for realistic physics feel
+        scrub: 1.5, // Smooth physics lag for weight
     }
 });
 
-// Zig-Zag Animation Path
-// The sofa moves left/right and rotates (rolls) smoothly as you scroll
-tl.to(sofa, {
-    x: "30vw", 
-    rotation: 15, // Rolling effect
+tl.to(sofa, { 
+    x: "20vw", 
+    rotationY: 60,  // SIDE VIEW
+    rotationZ: 5,
+    ease: "none" 
+})
+.to(sofa, { 
+    x: "0vw", 
+    rotationX: 45,  // UPPER VIEW
+    rotationY: 0,
+    scale: 1.2,
+    ease: "none" 
+})
+.to(sofa, { 
+    x: "-20vw", 
+    rotationY: 180, // BACK VIEW (Simulated via Flip)
+    rotationX: 0,
+    scale: 0.8,
+    ease: "none" 
+})
+.to(sofa, { 
+    x: "15vw", 
+    rotationY: -60, // OTHER SIDE
+    rotationZ: -5,
     scale: 1.1,
-    ease: "power1.inOut"
+    ease: "none" 
 })
-.to(sofa, {
-    x: "-30vw",
-    rotation: -15, 
-    scale: 0.9,
-    ease: "power1.inOut"
-})
-.to(sofa, {
-    x: "30vw",
-    rotation: 15,
-    scale: 1.1,
-    ease: "power1.inOut"
-})
-.to(sofa, {
-    x: "-30vw",
-    rotation: -15,
-    scale: 1,
-    ease: "power1.inOut"
-})
-.to(sofa, {
-    x: "0vw",
-    rotation: 0,
-    scale: 1.4, // Final scale up at the bottom of the page
-    ease: "power1.inOut"
+.to(sofa, { 
+    x: "0vw", 
+    rotationY: 0, 
+    rotationX: 0, 
+    rotationZ: 0, 
+    scale: 1.4,     // FINAL FRONT VIEW
+    ease: "none" 
 });
 
-// Fade in content boxes as they enter the viewport
-const contentBoxes = document.querySelectorAll('.content-box');
-contentBoxes.forEach((box) => {
-    gsap.fromTo(box, 
-        { opacity: 0, y: 50 },
-        { 
-            opacity: 1, 
-            y: 0, 
-            duration: 1, 
-            scrollTrigger: {
-                trigger: box,
-                start: "top 80%", // Triggers when box is 80% down the screen
-                toggleActions: "play none none reverse"
-            }
-        }
-    );
+// Shadow physics: Moves slightly opposite to sofa
+gsap.to(shadow, {
+    scaleX: 1.5,
+    opacity: 0.5,
+    scrollTrigger: {
+        trigger: ".scroll-container",
+        scrub: 1.5
+    }
 });
