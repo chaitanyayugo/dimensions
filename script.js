@@ -1,3 +1,21 @@
+// --- LOADING SCREEN LOGIC ---
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    const body = document.body;
+    
+    // We add a tiny 500ms delay just to make the transition feel cinematic
+    setTimeout(() => {
+        // Trigger the CSS fade out
+        loader.classList.add("fade-out");
+        // Re-enable scrolling
+        body.classList.remove("loading");
+        
+        // Refresh GSAP so it calculates the scroll heights correctly now that everything is loaded
+        ScrollTrigger.refresh();
+    }, 500); 
+});
+
+// ... your existing GSAP code starts here ...
 gsap.registerPlugin(ScrollTrigger);
 
 const sofa = document.getElementById("animated-sofa");
@@ -74,3 +92,4 @@ function createDust() {
     }
 }
 createDust();
+
