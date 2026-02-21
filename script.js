@@ -1,7 +1,6 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const sofa = document.getElementById("animated-sofa");
-const shadow = document.getElementById("sofa-shadow");
 
 window.addEventListener("load", () => {
     createDust();
@@ -12,7 +11,7 @@ window.addEventListener("load", () => {
     }, 1000);
 });
 
-// Sofa Rotation Mapping
+// Sofa Rotation Timeline
 const tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -22,24 +21,23 @@ const tl = gsap.timeline({
     }
 });
 
-tl.to(sofa, { rotationY: 80, rotationX: 10, scale: 1.1 })      // Sec 2
-  .to(sofa, { rotationY: 160, rotationX: -15, scale: 0.95 })   // Sec 3
-  .to(sofa, { rotationY: 220, rotationX: 15, scale: 1.1 })     // Sec 4
-  .to(sofa, { rotationY: 300, rotationX: -5, scale: 1.25 })    // Sec 5
-  .to(sofa, { rotationY: 360, rotationX: 0, scale: 1.6, ease: "power2.out" }); // Sec 6
+tl.to(sofa, { rotationY: 90, rotationX: 5, scale: 1.1 })
+  .to(sofa, { rotationY: 180, rotationX: -5, scale: 0.95 })
+  .to(sofa, { rotationY: 270, rotationX: 5, scale: 1.1 })
+  .to(sofa, { rotationY: 360, rotationX: 0, scale: 1.4, ease: "power2.out" });
 
-// Fixed Dust Function
 function createDust() {
     const container = document.getElementById("dust-container");
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 50; i++) {
         const d = document.createElement("div");
         d.className = "dust";
         container.appendChild(d);
         gsap.set(d, { x: Math.random() * innerWidth, y: Math.random() * innerHeight, opacity: Math.random() });
         gsap.to(d, {
-            y: "-=150", opacity: 0,
-            duration: 4 + Math.random() * 4,
+            y: "-=100", opacity: 0,
+            duration: 3 + Math.random() * 3,
             repeat: -1, ease: "sine.inOut"
         });
     }
+}
 }
