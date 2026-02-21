@@ -9,21 +9,10 @@ window.addEventListener("load", () => {
         document.getElementById("loader").classList.add("fade-out");
         document.body.classList.remove("loading");
         ScrollTrigger.refresh();
-    }, 1200);
+    }, 1000);
 });
 
-// Parallax Background
-gsap.to(".artistic-bg", {
-    y: "-15vh",
-    scrollTrigger: {
-        trigger: ".scroll-container",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true
-    }
-});
-
-// Sofa Rotation Timeline for 6 Sections
+// Sofa Rotation Mapping
 const tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".scroll-container",
@@ -33,36 +22,24 @@ const tl = gsap.timeline({
     }
 });
 
-tl.to(sofa, { rotationY: 70, rotationX: 15, scale: 1.1 })      // Section 2
-  .to(sofa, { rotationY: 150, rotationX: -10, scale: 0.95 })   // Section 3
-  .to(sofa, { rotationY: 210, rotationX: 20, scale: 1.1 })     // Section 4
-  .to(sofa, { rotationY: 280, rotationX: -5, scale: 1.2 })     // Section 5
-  .to(sofa, { rotationY: 360, rotationX: 0, scale: 1.6, ease: "power2.out" }); // Section 6
+tl.to(sofa, { rotationY: 80, rotationX: 10, scale: 1.1 })      // Sec 2
+  .to(sofa, { rotationY: 160, rotationX: -15, scale: 0.95 })   // Sec 3
+  .to(sofa, { rotationY: 220, rotationX: 15, scale: 1.1 })     // Sec 4
+  .to(sofa, { rotationY: 300, rotationX: -5, scale: 1.25 })    // Sec 5
+  .to(sofa, { rotationY: 360, rotationX: 0, scale: 1.6, ease: "power2.out" }); // Sec 6
 
-// Shadow Physics
-gsap.to(shadow, {
-    scaleX: 0.6, opacity: 0.1,
-    scrollTrigger: { trigger: ".scroll-container", scrub: 2 }
-});
-
+// Fixed Dust Function
 function createDust() {
     const container = document.getElementById("dust-container");
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 60; i++) {
         const d = document.createElement("div");
         d.className = "dust";
         container.appendChild(d);
-        gsap.set(d, { 
-            x: Math.random() * window.innerWidth, 
-            y: Math.random() * window.innerHeight, 
-            opacity: Math.random() 
-        });
+        gsap.set(d, { x: Math.random() * innerWidth, y: Math.random() * innerHeight, opacity: Math.random() });
         gsap.to(d, {
-            y: "-=180",
-            x: "+=" + (Math.random() * 80 - 40),
-            opacity: 0,
-            duration: 4 + Math.random() * 6,
-            repeat: -1,
-            ease: "sine.inOut"
+            y: "-=150", opacity: 0,
+            duration: 4 + Math.random() * 4,
+            repeat: -1, ease: "sine.inOut"
         });
     }
 }
