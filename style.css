@@ -26,11 +26,10 @@ body {
 /* --- 3D SCENE SETUP --- */
 .sofa-wrapper {
     position: fixed;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 650px;
-    z-index: 5;
-    perspective: 1500px; /* Essential for 3D depth */
+    perspective: 1500px; /* This makes the 'sides' look deeper as it rotates */
 }
 
 #animated-sofa {
@@ -71,3 +70,4 @@ body {
 }
 
 .cta-button:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); }
+
